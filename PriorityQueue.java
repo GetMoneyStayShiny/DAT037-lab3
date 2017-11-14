@@ -36,16 +36,24 @@ public void add (E e) {
 }
 
 public void delete (int i) {
-	heapls.set(0,heapls.get(i));
+	    int index = heapls.size()-1;
+        int temp = 0;
+        for(int i = 0; i<heapls.size();i++) {
+        	if(e == heapls.get(i)) {
+        	
+        		temp = i;
+        	}
+        }
+	heapls.set(temp,heapls.get(i));
 	heapls.remove(i);
 	if(heapls.size() > 0) {
-		moveDown(0);	
+		moveDown(temp);	
 	}
 }
 
 public void moveUp (int x) {
 	E e_temp = heapls.get(x);
-	if(x>0 && comp.compare(heapls.get(x),heapls.get(parentOf(x))) > 0) {
+	if(x>0 && comp.compare(heapls.get(x),heapls.get(parentOf(x))) < 0) {
 		heapls.set(x,heapls.get(parentOf(x)));
 		heapls.set(parentOf(x),e_temp);
 		moveUp(parentOf(x));
