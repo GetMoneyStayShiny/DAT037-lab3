@@ -1,6 +1,3 @@
-package Lab3;
-
-
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,7 +6,6 @@ import java.util.Comparator;
 public class PriorityQueue<E> {
 	Comparator<? super E> comp;
 	ArrayList<E> heapls = new ArrayList<E>();
-	
 
 
 
@@ -25,8 +21,6 @@ public boolean isEmpty() {
 		return false;
 	}
 }
-
-
 
 public void add (E e) {
 	heapls.add(e);
@@ -101,7 +95,6 @@ public boolean change (E e) {
 	}
 	return false;
 }
-
 
 
 }
