@@ -1,0 +1,69 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+
+public class APrioMap<K, V extends Comparable<? super V>> implements PrioMap<K,V> {
+	Comparator c;
+	PrioQ<Pair> pq;
+	HashMap<K,V> hm;
+	
+	
+	public APrioMap(){
+		c = new PairComparator();
+		hm = new HashMap<K, V>();
+		pq = new PrioQ<Pair>(c);
+		
+	}
+
+
+	public void put(K k, V v) {
+		Pair tempPair = new Pair(k,v);
+		V oldValue = hm.get(k);
+		if (hm.containsKey(k)) {
+			//pq.remove(Pair()));
+			 
+				pq.remove(new Pair<K, V>(k, oldValue));
+				pq.add(tempPair);
+				hm.put(k, v);
+				
+				System.out.println(pq.toString());
+				
+			
+				
+			}
+		
+		else {
+		pq.add(tempPair);
+		hm.put(k, v);
+		}
+}
+
+
+	public V get(K k) {
+			return hm.get(k);
+		}
+	
+
+
+	public Pair<K, V> peek() {
+		        if(pq.heapls.size()> 0){
+		            return(pq.heapls.get(0));
+		        }
+		        return null;
+		    }
+			
+
+
+	public Pair<K, V> poll() {
+		Pair temp = peek();
+		if(pq.heapls.size()> 0){
+			Pair<K,V> check = pq.heapls.get(0);
+			hm.remove(temp.a);
+			pq.remove(temp);
+			return check;
+            
+        }
+        return null;
+	}
+	
+}
