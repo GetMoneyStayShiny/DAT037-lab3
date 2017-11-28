@@ -1,0 +1,168 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+
+//import labb2.BinHeap.MyIterator;
+
+public class PrioQ<E> {
+	
+
+	Comparator<? super E> c;
+	ArrayList<E> heapls = new ArrayList<E>();
+	int size;
+	
+	public PrioQ(Comparator<? super E> comp){
+		this.c = comp;
+		size = 0;
+	}
+
+	/*
+	public class MyIterator implements Iterator<E>{
+		int j;
+		public MyIterator(){
+			j=0;
+		}
+		
+		@Override
+	     public void remove() {
+	         throw new UnsupportedOperationException();
+	     }
+
+		@Override
+		public boolean hasNext() {
+			if(heapls.size()>j)
+				return true;
+			return false;
+		}
+
+		@Override
+		public E next() {
+			E tmp = heapls.get(j);
+			j = j+1;
+			return tmp;
+		}
+		
+	}
+	*/
+	// sista element n-1
+	
+
+	private int parentOf(int i) {
+        return (i-1)/2;
+    }
+    
+  
+
+    private int firstChild(int i) {
+        return 2*i+1;
+    }
+
+
+    private int secondChild(int i) {
+        return 2*i+2;
+    }
+
+    public boolean isEmpty() {
+    	if (heapls.size() == 0){
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+
+ 
+    public void add(Object e) {
+        int index = heapls.size();
+        heapls.add((E) e);
+        percolateUp(index);
+    }
+
+    public String toString() {
+    	return heapls.toString();
+    }
+
+    public void remove(Object e) {
+    	// remove size-1
+    	
+        int index = heapls.size()-1;
+        int temp = 0;
+        for(int i = 0; i<heapls.size();i++) {
+        	if(e.equals(heapls.get(i))) {
+        	
+        		temp = i;
+        	}
+        }
+        //heapls.set(0,heapls.get(index));
+        heapls.set(temp, heapls.get(index));
+        heapls.remove(index);
+        if(heapls.size() > 0){        
+            percolateDown(temp);
+        }
+    }
+
+/*	
+	public Iterator<E> iterator() {
+	return new MyIterator();
+	}
+*/
+    public E peek(){
+        if(heapls.size()> 0){
+            return(heapls.get(0));
+        }
+        return null;
+    }
+	
+
+
+	public Object poll() {
+		if(heapls.size()> 0){
+			remove(heapls.get(0));
+            return(heapls.get(0));
+        }
+        return null;
+	}
+	
+
+    public void percolateUp(int i){
+        E tmp = heapls.get(i);
+        if(i>0 && c.compare(tmp,heapls.get(parentOf(i))) < 0){
+        	
+        	heapls.set(i,heapls.get(parentOf(i)));
+        	heapls.set(parentOf(i),tmp);
+        	
+            percolateUp(parentOf(i));
+        }
+    }
+    public void prntheap() {
+    	for(int i = 0; i < heapls.size();i++) {
+    	System.out.println(heapls.get(i));
+    	}
+    }
+
+
+	   public void percolateDown(int i){
+	        E tmp = heapls.get(i);
+	        if(secondChild(i) < heapls.size() && c.compare(heapls.get(firstChild(i)),
+	        		heapls.get(secondChild(i)))<0) {
+	        	
+	        		if(c.compare(tmp,heapls.get(secondChild(i)))<0) { 
+	        			
+	            	heapls.set(i,heapls.get(secondChild(i)));
+	            	heapls.set(secondChild(i),tmp);
+	                percolateDown(secondChild(i));
+	            }
+	        } else { 
+	            if(firstChild(i) < heapls.size() && c.compare(tmp,
+	            		heapls.get(firstChild(i)))<0) {
+	            	
+	            	heapls.set(i,heapls.get(firstChild(i)));
+	            	heapls.set(firstChild(i),tmp);
+	                percolateDown(firstChild(i));
+	            }
+	        }
+	    }
+
+	}
+	
+
