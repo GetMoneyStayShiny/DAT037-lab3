@@ -1,0 +1,93 @@
+package labb3;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+
+public class Graph { 
+	//ArrayList<Pair<String,Integer>> list;
+	private HashMap<String, ArrayList<Pair<String,Integer>>> graph;
+
+	public Graph() {
+    graph = new HashMap<String, ArrayList<Pair<String,Integer>>>();
+	}
+       
+    public void addVertice(String label) {
+    	
+    	graph.put(label,new ArrayList<Pair<String,Integer>>());
+    	
+    }
+    
+    public void addEdge(String node1, String node2, int dist) {  
+  
+    		graph.get(node2).add(new Pair<>(node1, dist));
+    		graph.get(node1).add(new Pair<>(node2, dist));
+    	
+    	
+    }
+    
+    public static class Path {
+        public int totalDist;
+        public List<String> vertices;
+        public Path(int totalDist, List<String> vertices) {
+            this.totalDist = totalDist;
+            this.vertices = vertices;
+        }
+
+        @Override
+        public String toString() {
+            return "totalDist: " + totalDist + ", vertices: " + vertices.toString();
+        }
+    }
+    
+    public Path shortestPath(String start, String dest) {
+			
+				
+			return null;
+		}
+	}
+  
+  //dijisktas kod -> shortestPath
+  
+/*
+ * d    = new array of size |V|, initialised to infintiy
+p    = new array of size |V|, initialised to null
+k    = new array of size |V|, initialised to false
+d[s] = 0
+repeat until no unknown node v' satisfies d[v'] < infintiy
+v = one of the unknown nodes v' with smallest d[v']
+k[v] = true
+for each direct successor v' of v do
+if (not k[v']) and d[v'] > d[v] + c(v,v') then
+d[v'] = d[v] + c(v,v')
+p[v'] = v
+return (d, p)
+
+O(|E| + |V |^2)
+
+använd denna:
+
+
+d    = empty map from node indices (by default infintiy)
+p    = empty map from node indices
+k    = empty set of node indices
+q    = new empty priority queue
+d[s] = 0
+q.insert(s, 0)
+while q is non-empty do
+v = q.delete-min()
+if v not in k then
+insert v into k
+for each direct successor v' of v do
+if (v' not in k) and d[v'] > d[v] + c(v,v') then
+d[v'] = d[v] + c(v,v')
+p[v'] = v
+q.insert(v', d[v'])
+return (d, p)
+
+O(|E | + |V| log |V |)
+
+
+ * 
+ */
